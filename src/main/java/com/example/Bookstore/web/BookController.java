@@ -9,12 +9,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.Bookstore.domain.Book;
 import com.example.Bookstore.domain.BookRepository;
+import com.example.Bookstore.domain.CategoryRepository;
 
 @Controller
 public class BookController {
 	
 	@Autowired
-	private BookRepository repository;
+	private BookRepository brepository;
+	
+	@Autowired
+	private CategoryRepository crepository;
 
 	
 	@RequestMapping("/index")
@@ -25,38 +29,40 @@ public class BookController {
 	
 	@RequestMapping("/booklist")
 	public String booklist(Model model) {
-		model.addAttribute("books", repository.findAll());
+		model.addAttribute("books", brepository.findAll());
 		
 		return "booklist";
 	}
 	
 	@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
 	public String deleteBook(@PathVariable("id") Long id, Model model) {
-		repository.deleteById(id);
+		brepository.deleteById(id);
 		return "redirect:../booklist";
 	}
 	
 	@RequestMapping("/addBook")
-	public String addStudent(Model model) {
+	public String addBook(Model model) {
 		model.addAttribute("book", new Book());
-		return "addbook";
+		model.addAttribute("categories", crepository.findAll());
+		return "addBook";
 	}
 	
 	@RequestMapping(value="/save", method = RequestMethod.POST)
 	public String save(Book book) {
-		repository.save(book);
+		brepository.save(book);
 		return "redirect:booklist";
 	}
 	
 	@RequestMapping(value="/edit/{id}")
-	public String editStudent(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("book", repository.findById(id));
+	public String editBook(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("book", brepository.findById(id));
+		model.addAttribute("categories", crepository.findAll());
 		return "editBook";
 	}
 	
 	@RequestMapping(value="/saveEdit", method = RequestMethod.POST)
 	public String saveEdit(Book book) {
-		repository.save(book);
+		brepository.save(book);
 		return "redirect:booklist";
 		
 	}
