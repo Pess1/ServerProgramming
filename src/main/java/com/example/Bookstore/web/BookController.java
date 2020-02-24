@@ -1,11 +1,16 @@
 package com.example.Bookstore.web;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicLong;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.Bookstore.domain.Book;
 import com.example.Bookstore.domain.BookRepository;
@@ -13,6 +18,7 @@ import com.example.Bookstore.domain.CategoryRepository;
 
 @Controller
 public class BookController {
+	private final AtomicLong counter = new AtomicLong();
 	
 	@Autowired
 	private BookRepository brepository;
@@ -65,6 +71,16 @@ public class BookController {
 		brepository.save(book);
 		return "redirect:booklist";
 		
+	}
+	
+	@RequestMapping(value="books", method = RequestMethod.GET)
+	public @ResponseBody List<Book> bookListRest() {
+		return (List<Book>) brepository.findAll();
+	}
+	
+	@RequestMapping(value="books/{id}", method = RequestMethod.GET)
+	public @ResponseBody Optional<Book> findStudentRest(@PathVariable("id") Long id) {
+		return brepository.findById(id);
 	}
 
 }
