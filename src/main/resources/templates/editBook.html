@@ -8,7 +8,7 @@
 <body>
 	<h1>Edit Book</h1>
 	<div>
-		<div>
+		<div class="col-md-4">
 		<form th:object="${book}" th:action="@{../saveEdit}" action="#" method="post">
 			<input type="hidden" th:field="*{id}" />
 		  	<label for="title">Title</label>
@@ -30,9 +30,9 @@
 			<select id="categoryList" th:field="*{category}">
 				<option th:each="category: ${categories}" th:value="${category.categoryId}" th:text="${category.name}"></option>
 			</select>
-			<div></div>
 			
-			<div></div>
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
 			<input type="submit" value="save"></input>
 		</form>
 		</div>

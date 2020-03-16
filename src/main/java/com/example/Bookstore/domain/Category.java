@@ -56,5 +56,9 @@ public class Category {
 	public void setBooks(List<Book> books) {
 		this.books = books;
 	}
+	
+	public String toString() {
+		return this.getName();
+	}
 
 }
