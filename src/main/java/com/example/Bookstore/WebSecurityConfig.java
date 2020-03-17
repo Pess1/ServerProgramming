@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
         .authorizeRequests().anyRequest().authenticated()
         .and()
         .formLogin()
-          .defaultSuccessUrl("/bookList")
+          .defaultSuccessUrl("/booklist")
           .permitAll()
           .and()
         .logout()

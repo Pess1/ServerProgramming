@@ -34,11 +34,11 @@ public class BookController {
 		
 	}
 	
-	@RequestMapping("/bookList")
+	@RequestMapping("/booklist")
 	public String booklist(Model model) {
 		model.addAttribute("books", brepository.findAll());
 		
-		return "bookList";
+		return "booklist";
 	}
 	
 	@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
