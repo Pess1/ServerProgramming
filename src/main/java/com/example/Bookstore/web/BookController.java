@@ -34,7 +34,7 @@ public class BookController {
 		
 	}
 	
-	@RequestMapping("/booklist")
+	@RequestMapping(value="/booklist", method = RequestMethod.GET)
 	public String booklist(Model model) {
 		model.addAttribute("books", brepository.findAll());
 		
